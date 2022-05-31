@@ -58,9 +58,11 @@
                 $laQuestionEnSql = "
                     SELECT posts.content,
                     posts.created,
+                    posts.user_id,
                     users.alias as author_name,  
                     count(likes.id) as like_number,  
-                    GROUP_CONCAT(DISTINCT tags.label) AS taglist 
+                    GROUP_CONCAT(DISTINCT tags.label) AS taglist, 
+                    GROUP_CONCAT(DISTINCT tags.id) AS tagid
                     FROM followers 
                     JOIN users ON users.id=followers.followed_user_id
                     JOIN posts ON posts.user_id=users.id
@@ -85,14 +87,14 @@
                 while ($post = $lesInformations->fetch_assoc())
                 {
 
-                    //echo "<pre>" . print_r($post, 1) . "</pre>";
+                    echo "<pre>" . print_r($post, 1) . "</pre>";
 
                 ?>                
                 <article>
                     <h3>
                         <time datetime='2020-02-01 11:12:13' ><?php echo $post['created']?></time>
                     </h3>
-                    <address><?php echo $post['author_name']?></address>
+                    <address><a href="wall.php?user_id=<?php echo $post['user_id'] ?>"><?php echo $post['author_name']?></a></address>
                     <div>
                         <p><?php echo $post['content']?></p>
                     </div>                                            
@@ -100,11 +102,20 @@
                         <small>♥ <?php echo $post['like_number']?></small>
 
                         <?php 
+
+                        //A REVOIR 
                         $arrayTags = explode(',', $post['taglist']);
+                        $arrayId = explode(',', $post['tagid']); 
                         
-                        foreach($arrayTags as $tags) {
-                        echo '<a href="">#' . $tags . ' </a>';
+                        for($i=0; $i < count($arrayTags); $i++) {
+                            echo '<a href="tags.php?tag_id='.$arrayId[$i].'">#' . $arrayTags[$i] . ' </a>';
                         }
+
+                        /*
+                        foreach($arrayTags as $tags) {
+                        echo '<a href="tags.php?tag_id='.$post['tagid'].'">#' . $tags . ' </a>';
+                        }
+                        */
 
                         ?>
                         

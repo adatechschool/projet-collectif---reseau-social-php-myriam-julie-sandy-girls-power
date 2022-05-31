@@ -14,7 +14,9 @@
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez la liste des personnes dont
-                        l'utilisatrice <?php  $userId = intval($_GET["user_id"]);?> suit les messages
+                        l'utilisatrice
+                        n° <?php echo intval($_GET['user_id']) ?>
+                        suit les messages
                     </p>
 
                 </section>
@@ -27,7 +29,7 @@
                 include('connexionbdd.php'); 
                 // Etape 3: récupérer le nom de l'utilisateur
                 $laQuestionEnSql = "
-                    SELECT users.* 
+                    SELECT users.*
                     FROM followers 
                     LEFT JOIN users ON users.id=followers.followed_user_id 
                     WHERE followers.following_user_id='$userId'
@@ -36,16 +38,17 @@
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 // Etape 4: à vous de jouer
                 //@todo: faire la boucle while de parcours des abonnés et mettre les bonnes valeurs ci dessous 
-            
+
+                            
                 while ($post = $lesInformations->fetch_assoc())
                 {
 
                     //echo "<pre>" . print_r($post, 1) . "</pre>";
-                ?>
 
+                ?>
                 <article>
                     <img src="user.jpg" alt="blason"/>
-                    <h3><?php echo $post['alias']?></h3>
+                    <h3><a href="wall.php?user_id=<?php echo $post['id'] ?>"><?php echo $post['alias']?></a></h3>
                     <p><?php echo $post['id']?></p>                    
                 </article>
                 <?php
