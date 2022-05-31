@@ -118,7 +118,14 @@
                         </div>
                         <footer>
                             <small>♥ <?php echo $post['like_number'] ?></small>
-                            <a href=""><?php echo $post['taglist'] ?></a>,
+                            <?php 
+                        $arrayTags = explode(',', $post['taglist']);
+                        
+                        foreach($arrayTags as $tags) {
+                        echo '<a href="">#' . $tags . ' </a>';
+                        }
+
+                        ?>
                         </footer>
                     </article>
                     <?php
