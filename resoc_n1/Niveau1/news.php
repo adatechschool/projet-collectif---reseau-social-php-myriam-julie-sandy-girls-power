@@ -71,9 +71,11 @@
                 $laQuestionEnSql = "
                     SELECT posts.content,
                     posts.created,
+                    posts.user_id,
                     users.alias as author_name,  
                     count(likes.id) as like_number,  
-                    GROUP_CONCAT(DISTINCT tags.label) AS taglist 
+                    GROUP_CONCAT(DISTINCT tags.label) AS taglist, 
+                    GROUP_CONCAT(DISTINCT tags.id) AS tagid
                     FROM posts
                     JOIN users ON  users.id=posts.user_id
                     LEFT JOIN posts_tags ON posts.id = posts_tags.post_id  
@@ -112,7 +114,7 @@
                         <h3>
                             <time><?php echo $post['created'] ?></time>
                         </h3>
-                        <address><?php echo $post['author_name'] ?></address>
+                        <address><a href="wall.php?user_id=<?php echo $post['user_id'] ?>"><?php echo $post['author_name'] ?></a></address>
                         <div>
                             <p><?php echo $post['content'] ?></p>
                         </div>
@@ -122,7 +124,7 @@
                         $arrayTags = explode(',', $post['taglist']);
                         
                         foreach($arrayTags as $tags) {
-                        echo '<a href="">#' . $tags . ' </a>';
+                        echo '<a href="tags.php?tag_id='.$post['tagid'].'">#' . $tags . ' </a>';
                         }
 
                         ?>
