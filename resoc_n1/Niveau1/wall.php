@@ -90,9 +90,13 @@
                             <?php 
 
                         //TAGS 
+                        
+                        if(empty($post['taglist'])){
+                            echo "<br>"; 
+                        } else {
                         $arrayTags = explode(',', $post['taglist']);
-
-                        foreach($arrayTags as $tags) {
+        
+                           foreach($arrayTags as $tags) {
                             $result = $mysqli->query("
                             SELECT id FROM tags WHERE label='$tags'
                             ");  
@@ -102,9 +106,8 @@
                             //echo "<pre>" . print_r($row, 1) . "</pre>";
 
                             echo '<a href="tags.php?tag_id='.$row[0][0].'">#' . $tags . ' </a>';
-                            }
-                        
-
+                            } 
+                        }
                         ?>
                             
                         </footer>
