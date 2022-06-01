@@ -94,13 +94,34 @@
                         <footer>
                             <small>♥ <?php echo $post['like_number']?></small>
                             <?php 
+
+                            //A REVOIR (effacer ligne pour avoir taglist dans la query??) 
+                            $arrayTags = explode(',', $post['taglist']);
+    
+                            foreach($arrayTags as $tags) {
+                                $result = $mysqli->query("
+                                SELECT id FROM tags WHERE label='$tags'
+                                ");  
+    
+                                $row = $result->fetch_array(MYSQLI_NUM);
+    
+                                //echo "<pre>" . print_r($row, 1) . "</pre>";
+    
+                                echo '<a href="tags.php?tag_id='.$row[0][0].'">#' . $tags . ' </a>';
+                                }
+                                
+
+                        /*
                         $arrayTags = explode(',', $post['taglist']);
                         
                         foreach($arrayTags as $tags) {
                         echo '<a href="">#' . $tags . ' </a>';
                         }
-
+                        */
+                        
                         ?>
+
+                        
                         </footer>
                     </article>
                 <?php } ?>

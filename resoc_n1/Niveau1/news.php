@@ -121,18 +121,27 @@
                         <footer>
                             <small>♥ <?php echo $post['like_number'] ?></small>
                             <?php 
-                        $arrayTags = explode(',', $post['taglist']);
-                        
-                        foreach($arrayTags as $tags) {
-                        echo '<a href="tags.php?tag_id='.$post['tagid'].'">#' . $tags . ' </a>';
-                        }
 
-                        ?>
+                        //TAGS 
+                        $arrayTags = explode(',', $post['taglist']);
+
+                        foreach($arrayTags as $tags) {
+                            $result = $mysqli->query("
+                            SELECT id FROM tags WHERE label='$tags'
+                            ");  
+
+                            $row = $result->fetch_array(MYSQLI_NUM);
+
+                            //echo "<pre>" . print_r($row, 1) . "</pre>";
+
+                            echo '<a href="tags.php?tag_id='.$row[0][0].'">#' . $tags . ' </a>';
+                            }
+                            ?>
                         </footer>
                     </article>
                     <?php
                     // avec le <?php ci-dessus on retourne en mode php 
-                }// cette accolade ferme et termine la boucle while ouverte avant.
+                } // cette accolade ferme et termine la boucle while ouverte avant.
                 ?>
 
             </main>

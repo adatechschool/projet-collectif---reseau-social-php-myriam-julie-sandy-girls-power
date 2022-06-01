@@ -88,11 +88,22 @@
                         <footer>
                             <small>♥ <?php echo $post['like_number']?></small>
                             <?php 
+
+                        //TAGS 
                         $arrayTags = explode(',', $post['taglist']);
-                        
+
                         foreach($arrayTags as $tags) {
-                        echo '<a href="tags.php?tag_id='.$post['tagid'].'">#' . $tags . ' </a>';
-                        }
+                            $result = $mysqli->query("
+                            SELECT id FROM tags WHERE label='$tags'
+                            ");  
+
+                            $row = $result->fetch_array(MYSQLI_NUM);
+
+                            //echo "<pre>" . print_r($row, 1) . "</pre>";
+
+                            echo '<a href="tags.php?tag_id='.$row[0][0].'">#' . $tags . ' </a>';
+                            }
+                        
 
                         ?>
                             
