@@ -15,7 +15,7 @@
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez la liste des personnes dont
                         l'utilisatrice
-                        n° <?php echo intval($_GET['user_id']) ?>
+                        n° <?php echo intval($_GET["user_id"]) ?>
                         suit les messages
                     </p>
 
