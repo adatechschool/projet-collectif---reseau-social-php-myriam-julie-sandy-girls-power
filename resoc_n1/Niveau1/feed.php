@@ -87,7 +87,7 @@
                 while ($post = $lesInformations->fetch_assoc())
                 {
 
-                    echo "<pre>" . print_r($post, 1) . "</pre>";
+                    //echo "<pre>" . print_r($post, 1) . "</pre>";
 
                 ?>                
                 <article>
@@ -103,15 +103,39 @@
 
                         <?php 
 
-                        //A REVOIR 
+                        //A REVOIR (effacer ligne pour avoir taglist dans la query??) 
                         $arrayTags = explode(',', $post['taglist']);
-                        $arrayId = explode(',', $post['tagid']); 
-                        
-                        for($i=0; $i < count($arrayTags); $i++) {
-                            echo '<a href="tags.php?tag_id='.$arrayId[$i].'">#' . $arrayTags[$i] . ' </a>';
-                        }
+
+                        foreach($arrayTags as $tags) {
+                            $result = $mysqli->query("
+                            SELECT id FROM tags WHERE label='$tags'
+                            ");  
+
+                            $row = $result->fetch_array(MYSQLI_NUM);
+
+                            //echo "<pre>" . print_r($row, 1) . "</pre>";
+
+                            echo '<a href="tags.php?tag_id='.$row[0][0].'">#' . $tags . ' </a>';
+                            }
 
                         /*
+                        OLD VERSION 1 : for + query 
+                        for($i=1; $i < count($arrayTags); $i++) {
+                            $tag_label = $arrayTags[$i];
+                            $result = $mysqli->query("
+                            SELECT id FROM tags WHERE label='$tag_label'
+                            ");  
+
+                            $row = $result->fetch_array(MYSQLI_NUM);
+
+                           // echo "<pre>" . print_r($row, 1) . "</pre>";
+
+                            echo '<a href="tags.php?tag_id='.$row[0].'">#' . $arrayTags[$i] . ' </a>';
+                        }
+                        */
+
+                        /*
+                        OLD VERSION 2 without query not working on multiple tags
                         foreach($arrayTags as $tags) {
                         echo '<a href="tags.php?tag_id='.$post['tagid'].'">#' . $tags . ' </a>';
                         }
