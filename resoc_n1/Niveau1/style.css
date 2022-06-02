@@ -18,7 +18,7 @@ body>header img{
     height:5em;
 }
 body>header #menu {
-    display:flex;
+    display:block;
     width:50%;
     align-items: stretch;
     border-left: 1px solid #99b;
@@ -34,14 +34,16 @@ body>header a:hover
     background-color: #99b;
 }
 body>header ul{list-style: none;}
+
 body>header #user
 {
     margin-left: auto;
     flex:0.2;
     border-left: 1px solid #99b;
+    width: 100%;
 }
 body>header #user>a{
-    display:block;
+    display: block;
     text-align: center;
     padding:2em 0;
     width:100%;

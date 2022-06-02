@@ -40,8 +40,9 @@
                 <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
-                    <p>Sur cette page vous trouverez tous les message de l'utilisatrice : <?php echo $user["alias"]?>
-                        
+                    <p>Sur cette page vous trouverez tous les message de l'utilisatrice : <?php echo $user["alias"]?><br><br>
+                    <a href="followers.php?user_id=5">Mes suiveurs</a><br>
+                    <a href="subscriptions.php?user_id=5">Mes abonnements</a>
                     </p>
                 </section>
             </aside>
