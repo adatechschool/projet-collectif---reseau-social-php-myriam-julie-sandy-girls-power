@@ -8,6 +8,7 @@
     </head>
     <body>
     <?php include('header.php'); ?>
+    <?php include('connexion.php'); ?>
         <div id="wrapper">
             <?php
             /**
@@ -44,6 +45,10 @@
                         
                     </p>
                 </section>
+                <div>
+            <a href="followers.php?user_id=5">Mes suiveurs</a><br>
+            <a href="subscriptions.php?user_id=5">Mes abonnements</a>      
+            </div>
             </aside>
             <main>
                 <?php
