@@ -1,3 +1,5 @@
+<?php include("connexion.php"); ?>
+
 <!doctype html>
 <html lang="fr">
     <head>
@@ -7,7 +9,6 @@
         <link rel="stylesheet" href="style.css"/>
     </head>
     <body>
-        
     <?php include('header.php'); ?>
 
         <div id="wrapper">

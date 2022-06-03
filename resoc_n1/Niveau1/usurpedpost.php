@@ -1,6 +1,5 @@
-<?php
-session_start();
-?>
+<?php include("connexion.php"); ?>
+
 <!doctype html>
 <html lang="fr">
     <head>

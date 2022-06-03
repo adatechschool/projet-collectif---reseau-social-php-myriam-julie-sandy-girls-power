@@ -1,3 +1,5 @@
+<?php include("connexion.php"); ?>
+
 <!doctype html>
 <html lang="fr">
     <head>
@@ -8,7 +10,6 @@
     </head>
     <body>
     <?php include('header.php'); ?>
-    <?php include('connexion.php'); ?>
         <div id="wrapper">
             <?php
             /**
@@ -18,6 +19,7 @@
              * Documentation : https://www.php.net/manual/fr/reserved.variables.get.php
              * ... mais en résumé c'est une manière de passer des informations à la page en ajoutant des choses dans l'url
              */
+            
             $userId =intval($_GET['user_id']);
             ?>
             <?php
@@ -31,7 +33,8 @@
                 <?php
                 /**
                  * Etape 3: récupérer le nom de l'utilisateur
-                 */                
+                 */  
+                echo $userId;   
                 $laQuestionEnSql = "SELECT * FROM users WHERE id= '$userId' ";
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 $user = $lesInformations->fetch_assoc();
@@ -41,7 +44,7 @@
                 <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
-                    <p>Sur cette page vous trouverez tous les message de l'utilisatrice : <?php echo $user["alias"]?>
+                    <p>Sur cette page vous trouverez tous les message de l'utilisatrice : <?php echo $user['alias'];?>
                         
                     </p>
                 </section>
