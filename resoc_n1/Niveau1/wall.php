@@ -50,13 +50,18 @@
 
 
             <!-- BOUTON POUR S'ABONNER -->
-            <form action="abonnement.php" method="post">
-                <input name="userToFollow" type="hidden" value="<?php echo $user_Id ?>"/>
-            <input value="s'abonner" type="submit">
-            </form><br>
 
-
-
+            <?php 
+            if($userId !== $user_Id) {
+                echo '<form action="abonnement.php" method="post">
+                <input name="userToFollow" type="hidden" value="' . $user_Id . '"/>
+            <input value="s\'abonner" type="submit">
+            </form><br>'; 
+            } else {
+                echo " ";
+            }
+                ?>
+    
 
             <div>
                 <a href="followers.php?user_id=<?php echo $user_Id ?>">Abonnés</a> - 
