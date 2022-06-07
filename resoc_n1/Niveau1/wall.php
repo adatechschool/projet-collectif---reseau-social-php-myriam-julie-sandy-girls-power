@@ -22,7 +22,7 @@
          * ... mais en résumé c'est une manière de passer des informations à la page en ajoutant des choses dans l'url
          */
 
-        $userId = intval($_GET['user_id']);
+        $user_Id = intval($_GET['user_id']);
         ?>
         <?php
         /**
@@ -36,7 +36,7 @@
             /**
              * Etape 3: récupérer le nom de l'utilisateur
              */
-            $laQuestionEnSql = "SELECT * FROM users WHERE id= '$userId' ";
+            $laQuestionEnSql = "SELECT * FROM users WHERE id= '$user_Id' ";
             $lesInformations = $mysqli->query($laQuestionEnSql);
             $user = $lesInformations->fetch_assoc();
             //@todo: afficher le résultat de la ligne ci dessous, remplacer XXX par l'alias et effacer la ligne ci-dessous
@@ -45,13 +45,24 @@
             <img src="user.jpg" alt="Portrait de l'utilisatrice" />
             <section>
                 <h3>Présentation</h3>
-                <p>Sur cette page vous trouverez tous les message de l'utilisatrice : <?php echo $user['alias']; ?>
-
-                </p>
+                <p>Sur cette page vous trouverez tous les message de l'utilisatrice : <?php echo $user['alias']; ?></p>
             </section>
+
+
+            <!-- BOUTON POUR S'ABONNER -->
+
+        
+
+
+
+
+
+
+
+
             <div>
-                <a href="followers.php?user_id=<?php echo $userId ?>">Abonnés</a> - 
-                <a href="subscriptions.php?user_id=<?php echo $userId ?>">Abonnements</a>
+                <a href="followers.php?user_id=<?php echo $user_Id ?>">Abonnés</a> - 
+                <a href="subscriptions.php?user_id=<?php echo $user_Id ?>">Abonnements</a>
             </div><br>
 
 
@@ -101,22 +112,35 @@
                     }
                     ?> 
 
-<div>
-            <form action="wall.php?user_id=<?php echo $userId ?>" method="post">
-                <input type='hidden' name='???' value='achanger'>
+                    <?php 
+
+                    echo $userId;
+                    echo $user_Id; 
+
+                    if($userId !== $user_Id) {
+                        echo " "; 
+                    } else {
+                        echo '<div>
+            <form action="wall.php?user_id=' . $userId . '" method="post">
+                <input type="hidden" name="???" value="achanger">
                
-                    <label for='message'>Message</label><br>
-                    <textarea name='message'></textarea><br>
+                    <label for="message">Message</label><br>
+                    <textarea name="message"></textarea><br>
             
-                <input type='submit'>
+                <input type="submit">
             </form>
-</div>
+</div>';
+
+                    }
+
+                    ?>
+
         </aside>
 
 
 
 
-
+                    <!--- AFFICHER LES MESSAGES -->
         <main>
             <?php
             /**
@@ -131,7 +155,7 @@
                     LEFT JOIN posts_tags ON posts.id = posts_tags.post_id  
                     LEFT JOIN tags       ON posts_tags.tag_id  = tags.id 
                     LEFT JOIN likes      ON likes.post_id  = posts.id 
-                    WHERE posts.user_id='$userId' 
+                    WHERE posts.user_id='$user_Id' 
                     GROUP BY posts.id
                     ORDER BY posts.created DESC  
                     ";
