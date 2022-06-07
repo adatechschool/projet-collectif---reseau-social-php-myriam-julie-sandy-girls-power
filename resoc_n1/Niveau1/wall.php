@@ -50,12 +50,10 @@
 
 
             <!-- BOUTON POUR S'ABONNER -->
-
-        
-
-
-
-
+            <form action="abonnement.php" method="post">
+                <input name="userToFollow" type="hidden" value="<?php echo $user_Id ?>"/>
+            <input value="s'abonner" type="submit">
+            </form><br>
 
 
 
@@ -114,9 +112,10 @@
 
                     <?php 
 
-                    echo $userId;
-                    echo $user_Id; 
+                    //echo $userId;
+                    //echo $user_Id; 
 
+                    //A MODIFIER : 
                     if($userId !== $user_Id) {
                         echo " "; 
                     } else {
