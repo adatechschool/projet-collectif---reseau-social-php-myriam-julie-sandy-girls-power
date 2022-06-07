@@ -7,9 +7,9 @@
 }
 exit; */
 
-session_start();
-session_unset();
-session_destroy();
+session_start(); //obligatoire : a mettre en premier dans le code sur chaque fichier php
+session_unset(); //vide ton fichier, remet a zero
+session_destroy(); //supprime le fichier virtuel
 
 header("location:login.php");
 exit();

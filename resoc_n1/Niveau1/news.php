@@ -12,7 +12,7 @@
         <?php include('header.php'); ?>
         <div id="wrapper">
             <aside>
-                <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
+                <img src="clara.jpg" alt="Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez les derniers messages de
@@ -73,6 +73,7 @@
                 $laQuestionEnSql = "
                     SELECT posts.content,
                     posts.created,
+                    posts.id as postid, 
                     posts.user_id,
                     users.alias as author_name,  
                     count(likes.id) as like_number,  
@@ -104,7 +105,7 @@
                     //la ligne ci-dessous doit etre supprimée mais regardez ce 
                     //qu'elle affiche avant pour comprendre comment sont organisées les information dans votre 
                     
-                    //echo "<pre>" . print_r($post, 1) . "</pre>";
+                   //echo "<pre>" . print_r($post, 1) . "</pre>";
 
                     // @todo : Votre mission c'est de remplacer les AREMPLACER par les bonnes valeurs
                     // ci-dessous par les bonnes valeurs cachées dans la variable $post 
@@ -120,9 +121,16 @@
                         <div>
                             <p><?php echo $post['content'] ?></p>
                         </div>
-                        <footer>
-                            <small>♥ <?php echo $post['like_number'] ?></small>
+                        <footer> 
+                            <small>
+                            <form action='like.php' method="post" id="likePost">
+                                <input name="postLiked" type="hidden" value="<?php   echo $post["postid"] ?>"/>
+            
+                                <button id="heart" type="submit">♥ <?php echo $post['like_number'] ?></button>
+                </form>
+                </small>
                             <?php 
+
 
                         //TAGS 
                         if(empty($post['taglist'])){
