@@ -116,9 +116,7 @@
                     //echo $user_Id; 
 
                     //A MODIFIER : 
-                    if($userId !== $user_Id) {
-                        echo " "; 
-                    } else {
+                    if($userId == $user_Id) {
                         echo '<div>
             <form action="wall.php?user_id=' . $userId . '" method="post">
                 <input type="hidden" name="???" value="achanger">
@@ -130,6 +128,8 @@
             </form>
 </div>';
 
+                    } else {
+                        echo " ";
                     }
 
                     ?>
