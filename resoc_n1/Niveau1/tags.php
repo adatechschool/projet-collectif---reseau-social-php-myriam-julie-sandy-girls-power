@@ -13,7 +13,6 @@
         <div id="wrapper">
             <?php
             /**
-             * Cette page est similaire à wall.php ou feed.php 
              * mais elle porte sur les mots-clés (tags)
              */
             /**
@@ -111,16 +110,6 @@
     
                                 echo '<a href="tags.php?tag_id='.$row[0][0].'">#' . $tags . ' </a>';
                                 }
-                                
-
-                        /*
-                        $arrayTags = explode(',', $post['taglist']);
-                        
-                        foreach($arrayTags as $tags) {
-                        echo '<a href="">#' . $tags . ' </a>';
-                        }
-                        */
-                        
                         ?>
 
                         

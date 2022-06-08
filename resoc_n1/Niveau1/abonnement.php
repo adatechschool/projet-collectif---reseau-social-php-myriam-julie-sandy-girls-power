@@ -9,10 +9,6 @@ echo $_SESSION['connected_id'];
                     {
                         // on ne fait ce qui suit que si un formulaire a été soumis.
                         // Etape 2: récupérer ce qu'il y a dans le formulaire @todo: c'est là que votre travaille se situe
-                        // observez le résultat de cette ligne de débug (vous l'effacerez ensuite)
-                        //echo "<pre>" . print_r($_POST, 1) . "</pre>";
-                        // et complétez le code ci dessous en remplaçant les ???
-                        //$authorId = $_POST['auteur'];
                         $userToFollow = $_POST['userToFollow'];
                         $connectedUser = $_SESSION['connected_id']; 
 
@@ -28,7 +24,6 @@ echo $_SESSION['connected_id'];
                                 . $userToFollow . ", "
                                 . $connectedUser . ");"
                                 ;
-                        //echo $lInstructionSql;
                         // Etape 5 : execution
                         $ok = $mysqli->query($lInstructionSql);
                         if ( ! $ok)
@@ -41,4 +36,3 @@ echo $_SESSION['connected_id'];
                     }
                     
                     header("location:wall.php?user_id=$userToFollow");
-                    ?> 

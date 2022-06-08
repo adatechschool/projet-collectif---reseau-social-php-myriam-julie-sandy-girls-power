@@ -13,11 +13,7 @@
 
         <div id="wrapper">
             <?php
-            /**
-             * Cette page est TRES similaire à wall.php. 
-             * Vous avez sensiblement à y faire la meme chose.
-             * Il y a un seul point qui change c'est la requete sql.
-             */
+             
             /**
              * Etape 1: Le mur concerne un utilisateur en particulier
              */
@@ -82,7 +78,6 @@
 
                 /**
                  * Etape 4: @todo Parcourir les messsages et remplir correctement le HTML avec les bonnes valeurs php
-                 * A vous de retrouver comment faire la boucle while de parcours...
                  */
 
                 while ($post = $lesInformations->fetch_assoc())
@@ -104,7 +99,7 @@
 
                         <?php 
 
-                        //A REVOIR (effacer ligne pour avoir taglist dans la query??) 
+                         
                         if(empty($post['taglist'])){
                             echo "<br>"; 
                         } else {
@@ -122,30 +117,6 @@
                             echo '<a href="tags.php?tag_id='.$row[0][0].'">#' . $tags . ' </a>';
                             } 
                         }
-
-                        /*
-                        OLD VERSION 1 : for + query 
-                        for($i=1; $i < count($arrayTags); $i++) {
-                            $tag_label = $arrayTags[$i];
-                            $result = $mysqli->query("
-                            SELECT id FROM tags WHERE label='$tag_label'
-                            ");  
-
-                            $row = $result->fetch_array(MYSQLI_NUM);
-
-                           // echo "<pre>" . print_r($row, 1) . "</pre>";
-
-                            echo '<a href="tags.php?tag_id='.$row[0].'">#' . $arrayTags[$i] . ' </a>';
-                        }
-                        */
-
-                        /*
-                        OLD VERSION 2 without query not working on multiple tags
-                        foreach($arrayTags as $tags) {
-                        echo '<a href="tags.php?tag_id='.$post['tagid'].'">#' . $tags . ' </a>';
-                        }
-                        */
-
                         ?>
                         
                     </footer>

@@ -16,9 +16,6 @@
     <div id="wrapper">
         <?php
         /**
-         * Etape 1: Le mur concerne un utilisateur en particulier
-         * La première étape est donc de trouver quel est l'id de l'utilisateur
-         * Celui ci est indiqué en parametre GET de la page sous la forme user_id=...
          * Documentation : https://www.php.net/manual/fr/reserved.variables.get.php
          * ... mais en résumé c'est une manière de passer des informations à la page en ajoutant des choses dans l'url
          */

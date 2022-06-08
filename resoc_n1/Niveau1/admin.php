@@ -42,11 +42,9 @@
 
                 /*
                  * Etape 3 : @todo : Afficher les mots clés en s'inspirant de ce qui a été fait dans news.php
-                 * Attention à en pas oublier de modifier tag_id=321 avec l'id du mot dans le lien
                  */
                 while ($tag = $lesInformations->fetch_assoc())
                 {
-                    //echo "<pre>" . print_r($tag, 1) . "</pre>";
                     ?>
                     <article>
                         <h3><?php echo $tag['label'] ?></h3>
@@ -75,11 +73,9 @@
 
                 /*
                  * Etape 5 : @todo : Afficher les utilisatrices en s'inspirant de ce qui a été fait dans news.php
-                 * Attention à en pas oublier de modifier dans le lien les "user_id=123" avec l'id de l'utilisatrice
                  */
                 while ($tag = $lesInformations->fetch_assoc())
                 {
-                    //echo "<pre>" . print_r($tag, 1) . "</pre>";
                     ?>
                     <article>
                         <h3><?php echo $tag['alias'] ?></h3>

@@ -1,5 +1,3 @@
-<?php // include("connexion.php"); ?>
-
 <header>
             <a href='admin.php' id="fondimage"><img src="ada.jpg" alt="Logo de notre réseau social"/></a>
             <nav id="menu">
