@@ -7,6 +7,7 @@
         <title>ReSoC - Administration</title> 
         <meta name="author" content="Julien Falconnet">
         <link rel="stylesheet" href="style.css"/>
+        
     </head>
     <body>
     <?php include('header.php'); ?>
