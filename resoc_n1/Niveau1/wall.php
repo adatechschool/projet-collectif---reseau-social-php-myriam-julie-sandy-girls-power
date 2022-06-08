@@ -42,10 +42,10 @@
             //@todo: afficher le résultat de la ligne ci dessous, remplacer XXX par l'alias et effacer la ligne ci-dessous
             //echo "<pre>" . print_r($user, 1) . "</pre>";
             ?>
-            <img src="user.jpg" alt="Portrait de l'utilisatrice" />
+            <img src="clara.jpg" alt="Portrait de l'utilisatrice" />
             <section>
                 <h3>Présentation</h3>
-                <p>Sur cette page vous trouverez tous les message de l'utilisatrice : <?php echo $user['alias']; ?></p>
+                <p>Sur cette page vous trouverez tous les message de l'utilisatrice : <?php echo $user["alias"]; ?></p>
             </section>
 
 
