@@ -1,8 +1,7 @@
 <?php 
-
-if(!isset($_SESSION)){
-    session_start();
-    $userId = intval($_SESSION['connected_id']); 
+session_start();
+//print_r($_SESSION);
+if (!isset($_SESSION['connected_id'])){
+    header("location:login.php");
 }
-
 ?> 

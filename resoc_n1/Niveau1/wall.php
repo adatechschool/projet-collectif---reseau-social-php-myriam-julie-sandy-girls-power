@@ -1,4 +1,5 @@
 <?php include("connexion.php"); ?>
+<?php // include ("restriction.php");?>
 
 <!doctype html>
 <html lang="fr">
@@ -23,6 +24,7 @@
          */
 
         $user_Id = intval($_GET['user_id']);
+        $userId = $_SESSION['connected_id'];
         ?>
         <?php
         /**

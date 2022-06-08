@@ -1,4 +1,4 @@
-<?php include("connexion.php"); ?>
+<?php include("connexion.php");?>
 
 <!doctype html>
 <html lang="fr">
