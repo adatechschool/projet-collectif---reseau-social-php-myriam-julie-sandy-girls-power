@@ -10,8 +10,13 @@
                 <a href="#">▾ Profil</a>
                 <ul>
                     <li><a href="settings.php?user_id=<?php echo $_SESSION['connected_id'] ?>">Paramètres</a></li>
-                    <li><a href= "login.php?">Connexion</a></li>
-                    <li><a href= "deconnexion.php">Déconnexion</a></li>
+                    <?php 
+                    if (!isset($_SESSION['connected_id'])) {
+                        echo '<li><a href= "login.php?">Connexion</a></li>';
+                    }else {
+                        echo '<li><a href= "deconnexion.php">Déconnexion</a></li>';
+                    }
+                    ?>
                 </ul>
             </nav>
         </header>

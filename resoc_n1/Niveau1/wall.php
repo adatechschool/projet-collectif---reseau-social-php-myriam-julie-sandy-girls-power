@@ -51,13 +51,13 @@
             <!-- BOUTON POUR S'ABONNER -->
 
             <?php 
-            if($userId !== $user_Id) {
-                echo '<form action="abonnement.php" method="post">
+            if($userId == $user_Id) {
+                echo  " ";
+            } else {
+                echo  '<form action="abonnement.php" method="post">
                 <input name="userToFollow" type="hidden" value="' . $user_Id . '"/>
             <input value="s\'abonner" type="submit">
             </form><br>'; 
-            } else {
-                echo " ";
             }
                 ?>
     
