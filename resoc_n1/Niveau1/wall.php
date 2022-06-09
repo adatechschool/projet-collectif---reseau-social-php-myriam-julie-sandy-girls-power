@@ -64,12 +64,12 @@
             } elseif($row_followStatus == 0){
                 echo  '<form action="abonnement.php" method="post">
                 <input name="userToFollow" type="hidden" value="' . $user_Id . '"/>
-            <input value="s\'abonner" type="submit">
+            <input id="followbutton" value="S\'abonner" type="submit">
             </form><br>'; 
             } else {
                 echo '<form action="desabonnement.php" method="post">
                 <input name="userToUnfollow" type="hidden" value="' . $user_Id . '"/>
-            <input value="se désabonner" type="submit">
+            <input id="unfollowbutton" value="Se désabonner" type="submit">
             </form><br>';
             }
                 ?>
@@ -162,9 +162,9 @@
                         <input type="hidden" name="???" value="achanger">
                     
                             <label for="message">Message</label><br>
-                            <textarea name="message"></textarea><br>
+                            <textarea id="areamessage" name="message"></textarea><br>
                     
-                        <input type="submit">
+                        <input id="messagebutton" type="submit">
                     </form>
                         </div>';
 
