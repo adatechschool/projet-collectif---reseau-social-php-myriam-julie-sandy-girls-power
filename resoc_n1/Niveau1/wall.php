@@ -48,19 +48,33 @@
             </section>
 
 
-            <!-- BOUTON POUR S'ABONNER -->
+            <!-- BOUTON POUR S'ABONNER ET SE DÉSABONNER -->
 
             <?php 
+
+            //Requête pour savoir si l'utilisateur connecté follow déjà la page
+            $followStatus = "SELECT id FROM followers WHERE followed_user_id ='$user_Id' AND following_user_id='$userId' "; 
+            $followStatusResult = $mysqli->query($followStatus);
+            $row_followStatus = $followStatusResult->num_rows; //Retourne le nombre de lignes dans le jeu de résultats
+
+            //echo $row_followStatus; 
+
             if($userId == $user_Id) {
                 echo  " ";
-            } else {
+            } elseif($row_followStatus == 0){
                 echo  '<form action="abonnement.php" method="post">
                 <input name="userToFollow" type="hidden" value="' . $user_Id . '"/>
             <input value="s\'abonner" type="submit">
             </form><br>'; 
+            } else {
+                echo '<form action="desabonnement.php" method="post">
+                <input name="userToUnfollow" type="hidden" value="' . $user_Id . '"/>
+            <input value="se désabonner" type="submit">
+            </form><br>';
             }
                 ?>
     
+
 
             <div>
                 <a href="followers.php?user_id=<?php echo $user_Id ?>">Abonnés</a> - 
@@ -110,6 +124,28 @@
                         } else
                         {
                             echo "Message posté en tant que :" . $userId;
+                            
+                            //TAGS QUAND ON VEUT POSTER UN MESSAGE -------- A FINIR
+                            $hashtags= FALSE;  
+                            preg_match_all("/(#\w+)/u", $postContent, $matches);  
+                            if ($matches) {
+                                $hashtagsArray = array_count_values($matches[0]);
+                                $hashtags = array_keys($hashtagsArray);
+                            }
+                            print_r( $hashtags );
+
+                            foreach( $hashtags as $hashtag){
+                                $hash = ltrim($hashtag, '#'); //retirer le # devant 
+                                //echo $hash; 
+
+                                //Check si le hashtag est dans la BDD
+                                //Si oui : insérer dans post_tags avec le numéro du tag et last insert id
+                                //Si non : insérer dans la table tags puis dans la table post_tags ????????????? 
+
+
+                            }
+                            
+
                         }
                     }
                     ?> 
@@ -122,15 +158,15 @@
                     //A MODIFIER : 
                     if($userId == $user_Id) {
                         echo '<div>
-            <form action="wall.php?user_id=' . $userId . '" method="post">
-                <input type="hidden" name="???" value="achanger">
-               
-                    <label for="message">Message</label><br>
-                    <textarea name="message"></textarea><br>
-            
-                <input type="submit">
-            </form>
-</div>';
+                    <form action="wall.php?user_id=' . $userId . '" method="post">
+                        <input type="hidden" name="???" value="achanger">
+                    
+                            <label for="message">Message</label><br>
+                            <textarea name="message"></textarea><br>
+                    
+                        <input type="submit">
+                    </form>
+                        </div>';
 
                     } else {
                         echo " ";
@@ -186,8 +222,8 @@
                         <small>♥ <?php echo $post['like_number'] ?></small>
                         <?php
 
-                        //TAGS 
 
+                        //TAGS 
                         if (empty($post['taglist'])) {
                             echo "<br>";
                         } else {
