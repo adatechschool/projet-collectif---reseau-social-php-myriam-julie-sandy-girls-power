@@ -99,7 +99,7 @@
                             <form action='like.php' method="post" id="likePost">
                                 <input name="postLiked" type="hidden" value="<?php echo $post["postid"] ?>" />
 
-                                <button id="heart" type="submit">♥ <?php echo $post['like_number'] ?></button>
+                                <button id="heart" type="submit"><span id="heartColor">♥</span> <?php echo $post['like_number'] ?></button>
 
                             </form>
                         </small>

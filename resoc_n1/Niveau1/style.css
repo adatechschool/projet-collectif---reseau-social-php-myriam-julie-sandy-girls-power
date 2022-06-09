@@ -173,6 +173,10 @@ form dl dd textarea{width:40em;height: 15em;}
     background-color: white;
 }
 
+span {
+    color: red;
+}
+
 #followbutton {
     background-color: #F8D9D1;
     border: none;

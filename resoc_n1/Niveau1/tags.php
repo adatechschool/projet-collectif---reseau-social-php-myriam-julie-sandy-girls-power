@@ -93,7 +93,7 @@
                             <p><?php echo $post['content']?></p>
                         </div>                                            
                         <footer>
-                            <small>♥ <?php echo $post['like_number']?></small>
+                            <small><span>♥</span> <?php echo $post['like_number']?></small>
                             <?php 
 
                             //A REVOIR (effacer ligne pour avoir taglist dans la query??) 
