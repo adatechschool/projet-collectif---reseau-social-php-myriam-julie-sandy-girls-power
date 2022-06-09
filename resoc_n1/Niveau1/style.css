@@ -1,5 +1,5 @@
 body{
-    background-color: #FFF;
+    background-color: #F8D8D9;
     font-family: Arial;
 }
 
@@ -93,7 +93,7 @@ body>header #user:hover ul{
 #wrapper main{
     flex:3;
     padding-left:1em;
-    height: 80vh;
+    height: 150vh;
     /*overflow-y:  scroll;*/
     border-radius: 1em;
    
@@ -133,7 +133,7 @@ body>header #user:hover ul{
 
 #wrapper.admin{flex-direction: row-reverse}
 #wrapper.admin aside{flex:1;margin-left:1em;border-radius:0;padding:0;}
-#wrapper.admin main{flex:2;background-color: #fff;border-radius: 0;padding:0;}
+#wrapper.admin main{flex:2;background-color: #fff;border-radius: 0;padding:0; border: 1px solid rgb(220, 53, 40)}
 #wrapper.admin h2{text-align: center;}
 #wrapper.admin h3{margin:0;}
 #wrapper.admin nav{text-align: right;}
