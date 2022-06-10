@@ -125,23 +125,64 @@
                         {
                             echo "Message posté en tant que :" . $userId;
                             
-                            //TAGS QUAND ON VEUT POSTER UN MESSAGE -------- A FINIR
-                            $hashtags= FALSE;  
+                            //-----------------------GESTION DES TAGS DANS LE MESSAGE POSTÉ
+                            $postContentId = $mysqli->insert_id; //On récupère l'id du dernier msg
+                             
+                            //On récupère les mots commençant par un #
                             preg_match_all("/(#\w+)/u", $postContent, $matches);  
-                            if ($matches) {
-                                $hashtagsArray = array_count_values($matches[0]);
-                                $hashtags = array_keys($hashtagsArray);
-                            }
-                            print_r( $hashtags );
+                            //print_r( $matches );
 
-                            foreach( $hashtags as $hashtag){
+                            foreach( $matches[0] as $hashtag){
                                 $hash = ltrim($hashtag, '#'); //retirer le # devant 
-                                //echo $hash; 
+                                echo $hash;
 
                                 //Check si le hashtag est dans la BDD
-                                //Si oui : insérer dans post_tags avec le numéro du tag et last insert id
-                                //Si non : insérer dans la table tags puis dans la table post_tags ????????????? 
+                                $checkTag = "SELECT id FROM tags WHERE label='$hash' ";
+                                $checkTagsResult = $mysqli->query($checkTag);
+                                $row_checkTag = $checkTagsResult->num_rows; //retourne le nombre de lignes dans un résultat
+                                echo 'ceci est le row : ' . $row_checkTag; 
 
+                                //-----> Si # n'est PAS dans BDD : 
+                                //insertion du tag dans la table 'tags'
+                                if($row_checkTag == 0){
+                                    $insertIntoTag = "INSERT INTO tags (id, label) VALUES (NULL, '$hash');"
+                                ;
+                                $done = $mysqli->query($insertIntoTag);
+
+                                $lastTagId = $mysqli->insert_id; //On récupère l'id du tag qui vient d'être ajouté
+                                //insertion de l'id du tag dans la table 'posts_tags'
+                                    if ($done) {
+                                        $insertIntoPostTag = "INSERT INTO posts_tags "
+                                        . "(id, post_id, tag_id) "
+                                        . "VALUES (NULL, "
+                                        . $postContentId . ", "
+                                        . $lastTagId . ");"
+                                        ;
+
+                                        $good = $mysqli->query($insertIntoPostTag);
+                                    } else {
+                                        echo "ERREUR (ajout dans table tag)"; 
+                                    }
+
+                                //-----> Si # EST dans BDD : 
+                                } else {
+                                    $row = $checkTagsResult->fetch_assoc(); 
+                                    $rowId = $row['id'];
+                                    echo "Ceci est rowId : " . $rowId; 
+
+                                    $insertTag = "INSERT INTO posts_tags "
+                                        . "(id, post_id, tag_id) "
+                                        . "VALUES (NULL, "
+                                        . $postContentId . ", "
+                                        . $rowId . ");"
+                                        ;
+
+                                        $allgood = $mysqli->query($insertTag);
+
+                                        if(!$allgood){
+                                            echo "ERREUR (ajout dans table post_tags) !";
+                                        }
+                                }
 
                             }
                             
@@ -155,7 +196,7 @@
                     //echo $userId;
                     //echo $user_Id; 
 
-                    //A MODIFIER : 
+                    //Formulaire pour poster un message
                     if($userId == $user_Id) {
                         echo '<div>
                     <form action="wall.php?user_id=' . $userId . '" method="post">
@@ -186,7 +227,7 @@
              * Etape 3: récupérer tous les messages de l'utilisatrice
              */
             $laQuestionEnSql = "
-                    SELECT posts.content, posts.user_id, posts.created, users.alias as author_name, 
+                    SELECT posts.content, posts.id as postid, posts.user_id, posts.created, users.alias as author_name, 
                     COUNT(likes.id) as like_number, GROUP_CONCAT(DISTINCT tags.label) AS taglist,
                     GROUP_CONCAT(DISTINCT tags.id) AS tagid
                     FROM posts
@@ -219,7 +260,35 @@
                         <p><?php echo $post['content'] ?></p>
                     </div>
                     <footer>
-                        <small><span>♥</span> <?php echo $post['like_number'] ?></small>
+                        <small>
+                        <?php 
+                                // -------> BOUTON LIKE 
+                                $userId = $_SESSION['connected_id']; 
+                                $postLiked = $post['postid']; 
+
+
+                                //Requête pour savoir si l'utilisateur like déjà le post 
+                                $likeStatus = "SELECT id FROM likes WHERE `user_id` ='$userId' AND post_id='$postLiked' "; 
+                                $likeStatusResult = $mysqli->query($likeStatus);
+                                $row_likeStatus = $likeStatusResult->num_rows; //Retourne le nombre de lignes dans le jeu de résultats
+                                //echo $row; 
+                                //echo $row_likeStatus; 
+
+                                if($row_likeStatus == 0){
+                                    echo '<form action="like.php" method="post" id="likePost">
+                                    <input name="postLiked" type="hidden" value="' . $post["postid"] . '" />
+                                    <button id="heart" type="submit">♥ ' . $post["like_number"] . '</button>
+                                </form>';
+                                } else {
+                                    echo '<form action="unlike.php" method="post" id="likePost">
+                                    <input name="postUnliked" type="hidden" value="' . $post["postid"] . '" />
+                                    <button id="heart" type="submit"><span id="heartColor">♥</span> ' . $post["like_number"] . '</button>
+                                    </form>';
+                                }
+                                
+                            
+                                ?>
+                        </small>
                         <?php
 
 
@@ -236,9 +305,9 @@
 
                                 $row = $result->fetch_array(MYSQLI_NUM);
 
-                                //echo "<pre>" . print_r($row, 1) . "</pre>";
+                                //echo "<pre>" . print_r($row, 1) . "</pre>"; 
 
-                                echo '<a href="tags.php?tag_id=' . $row[0][0] . '">#' . $tags . ' </a>';
+                                echo '<a href="tags.php?tag_id=' . $row[0] . '">#' . $tags . ' </a>';
                             }
                         }
                         ?>

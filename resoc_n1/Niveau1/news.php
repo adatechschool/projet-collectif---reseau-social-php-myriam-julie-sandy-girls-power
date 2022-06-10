@@ -96,13 +96,39 @@
                     </div>
                     <footer>
                         <small>
-                            <form action='like.php' method="post" id="likePost">
-                                <input name="postLiked" type="hidden" value="<?php echo $post["postid"] ?>" />
+                         <?php 
 
-                                <button id="heart" type="submit"><span id="heartColor">♥</span> <?php echo $post['like_number'] ?></button>
+                        // -------> BOUTON LIKE 
 
-                            </form>
-                        </small>
+                        //Si l'utilisateur est connecté
+                        if(isset($_SESSION['connected_id'])){
+                        $userId = $_SESSION['connected_id']; 
+                        $postLiked = $post['postid']; 
+                        
+                        //Requête pour savoir si l'utilisateur like déjà le post 
+                        $likeStatus = "SELECT id FROM likes WHERE `user_id` ='$userId' AND post_id='$postLiked' "; 
+                        $likeStatusResult = $mysqli->query($likeStatus);
+                        $row_likeStatus = $likeStatusResult->num_rows; //Retourne le nombre de lignes dans le jeu de résultats
+                        //echo $row; 
+                        //echo $row_likeStatus; 
+
+                        if($row_likeStatus == 0){
+                            echo '<form action="like.php" method="post" id="likePost">
+                            <input name="postLiked" type="hidden" value="' . $post["postid"] . '" />
+                            <button id="heart" type="submit">♥ ' . $post["like_number"] . '</button>
+                        </form>';
+                        } else {
+                            echo '<form action="unlike.php" method="post" id="likePost">
+                            <input name="postUnliked" type="hidden" value="' . $post["postid"] . '" />
+                            <button id="heart" type="submit"><span id="heartColor">♥</span> ' . $post["like_number"] . '</button>
+                            </form>';
+                        } 
+                    } else {
+                        echo '<span>♥</span> ' . $post["like_number"];
+                    }
+                        ?>
+                            </small>
+
                         <?php
 
 
